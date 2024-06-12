@@ -15,20 +15,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="random"
+        options={{
+          title: "Random",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="random" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="favorites"
         options={{
           title: "Favorites",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="bookmark-o" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="cog" color={color} />
           ),
         }}
       />
