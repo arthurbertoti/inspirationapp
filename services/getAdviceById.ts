@@ -1,13 +1,10 @@
 import { AxiosError } from "axios"
 import { api } from "./api"
-import { Advice, ErrorMessage } from "@/models"
+import { Advice, ErrorMessage, RequestResponse } from "@/models"
 
-type Response =
-  | [Advice, null, null]
-  | [null, ErrorMessage, null]
-  | [null, null, AxiosError]
-
-export async function getAdviceById(slip_id: number): Promise<Response> {
+export async function getAdviceById(
+  slip_id: number
+): Promise<RequestResponse<Advice>> {
   try {
     const response = await api.get(`/${slip_id}`)
     const data = response.data
