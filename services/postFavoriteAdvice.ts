@@ -7,7 +7,7 @@ import { ADVICE_COLLECTION } from "@/storage/storageConfig"
 
 import { Advice, ErrorMessage, RequestResponse } from "@/models"
 
-export async function favoriteAdvice(
+export async function postFavoriteAdvice(
   newAdvice: Advice
 ): Promise<RequestResponse<Advice>> {
   try {

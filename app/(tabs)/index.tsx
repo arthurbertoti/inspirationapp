@@ -4,7 +4,7 @@ import { useFocusEffect } from "expo-router"
 import * as Clipboard from "expo-clipboard"
 import { AxiosError } from "axios"
 
-import { favoriteAdvice, getAdviceById } from "@/services"
+import { postFavoriteAdvice, getAdviceById } from "@/services"
 
 import { Advice, ErrorMessage } from "@/models"
 
@@ -47,7 +47,7 @@ export default function HomeScreen() {
 
   const handleFavorite = async (advice: Advice) => {
     try {
-      const [response, errorMessage, error] = await favoriteAdvice(advice)
+      const [response, errorMessage, error] = await postFavoriteAdvice(advice)
       if (errorMessage) {
         setErrorOnFavorite(errorMessage)
         Alert.alert(errorMessage.message.text, `"${advice.slip.advice}"`)
