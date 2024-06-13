@@ -1,14 +1,18 @@
 import { useCallback, useState } from "react"
-import { Text, View } from "react-native"
+import { Alert, Text, View } from "react-native"
 import { useFocusEffect } from "expo-router"
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons"
 import { AxiosError } from "axios"
 
-import { getAllFavorites } from "@/services"
+import {
+  deleteFavoriteAdvice,
+  getAllFavorites,
+  postFavoriteAdvice,
+} from "@/services"
 
 import { Advice, ErrorMessage } from "@/models"
 
-import { LoadingComponent } from "@/components"
+import { AdviceComponent, LoadingComponent } from "@/components"
 
 export default function favoritesScreen() {
   const [favorites, setFavorites] = useState<Advice[] | null>(null)
@@ -29,6 +33,21 @@ export default function favoritesScreen() {
     }
   }
 
+  const handleDeleteAdvice = async (advice: Advice) => {
+    Alert.alert(
+      "Do you want unfavorite this advice?",
+      `"${advice.slip.advice}"`,
+      [
+        { text: "OK", onPress: () => deleteFavoriteAdvice(advice) },
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ]
+    )
+    await getSavedAdvices()
+  }
+
   useFocusEffect(
     useCallback(() => {
       getSavedAdvices()
@@ -43,10 +62,11 @@ export default function favoritesScreen() {
         <Text>An error occurred! Try again restarting the app!</Text>
       ) : favorites ? (
         favorites.map((advice) => (
-          <View key={advice.slip.id}>
-            <Text>{advice.slip.advice}</Text>
-            <MaterialIcons size={14} name="delete-outline" color="black" />
-          </View>
+          <AdviceComponent
+            key={advice.slip.id}
+            advice={advice}
+            deleteFromFavorites={() => handleDeleteAdvice(advice)}
+          />
         ))
       ) : (
         <Text>

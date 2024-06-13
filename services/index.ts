@@ -1,3 +1,4 @@
+export * from "./deleteFavoriteAdvice"
 export * from "./getAdviceById"
 export * from "./getAllFavorites"
 export * from "./getRandomAdvice"
