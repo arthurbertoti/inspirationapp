@@ -65,6 +65,7 @@ export default function favoritesScreen() {
           <AdviceComponent
             key={advice.slip.id}
             advice={advice}
+            copyToClipboard
             deleteFromFavorites={() => handleDeleteAdvice(advice)}
           />
         ))

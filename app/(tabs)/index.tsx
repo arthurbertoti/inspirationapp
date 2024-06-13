@@ -36,15 +36,6 @@ export default function HomeScreen() {
     }
   }
 
-  const handleCopy = async (text: string) => {
-    try {
-      await Clipboard.setStringAsync(text)
-      Alert.alert("Message copied!", `"${text}"`)
-    } catch (error) {
-      Alert.alert("Error!", "The message could not be copied!")
-    }
-  }
-
   const handleFavorite = async (advice: Advice) => {
     try {
       const [response, errorMessage, error] = await postFavoriteAdvice(advice)
@@ -72,7 +63,7 @@ export default function HomeScreen() {
       ) : dailyAdvice?.slip && !error ? (
         <AdviceComponent
           advice={dailyAdvice}
-          copyToClipboard={() => handleCopy(dailyAdvice.slip.advice)}
+          copyToClipboard
           favoriteAdvice={() => handleFavorite(dailyAdvice)}
         />
       ) : (
