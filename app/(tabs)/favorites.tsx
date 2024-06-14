@@ -32,14 +32,19 @@ export default function favoritesScreen() {
       "Do you want unfavorite this advice?",
       `"${advice.slip.advice}"`,
       [
-        { text: "OK", onPress: () => deleteFavoriteAdvice(advice) },
+        {
+          text: "OK",
+          onPress: async () => {
+            await deleteFavoriteAdvice(advice)
+            await getSavedAdvices()
+          },
+        },
         {
           text: "Cancel",
           style: "cancel",
         },
       ]
     )
-    await getSavedAdvices()
   }
 
   useFocusEffect(
