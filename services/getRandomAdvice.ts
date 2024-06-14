@@ -9,7 +9,7 @@ type Response =
 
 export async function getRandomAdvice(): Promise<Response> {
   try {
-    const response = await api.get("")
+    const response = await api.get("/advice")
     const data = response.data
     if ("slip" in data) return [data as Advice, null, null]
     else return [null, data as ErrorMessage, null]
