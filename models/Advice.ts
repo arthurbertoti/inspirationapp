@@ -4,3 +4,7 @@ export type Advice = {
     advice: string
   }
 }
+
+export type DailyAdvice = Advice & {
+  imgUrl: string
+}
