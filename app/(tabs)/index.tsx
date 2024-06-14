@@ -6,6 +6,8 @@ import { AxiosError } from "axios"
 
 import { postFavoriteAdvice, getAdviceById } from "@/services"
 
+import { handleFavorite } from "@/utils"
+
 import { Advice, ErrorMessage } from "@/models"
 
 import { AdviceComponent, DefaultScreen, LoadingComponent } from "@/components"
@@ -33,20 +35,6 @@ export default function HomeScreen() {
       setError(error as AxiosError)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleFavorite = async (advice: Advice) => {
-    try {
-      const [response, errorMessage, error] = await postFavoriteAdvice(advice)
-      if (errorMessage) {
-        setErrorOnFavorite(errorMessage)
-        Alert.alert(errorMessage.message.text, `"${advice.slip.advice}"`)
-        return
-      }
-      Alert.alert("Message added to favorites!", `"${advice.slip.advice}"`)
-    } catch (error) {
-      Alert.alert("Error!", "The message could not be copied!")
     }
   }
 

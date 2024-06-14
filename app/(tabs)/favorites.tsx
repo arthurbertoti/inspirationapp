@@ -1,16 +1,12 @@
 import { useCallback, useState } from "react"
 import { Alert, Text, View } from "react-native"
 import { useFocusEffect } from "expo-router"
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons"
+import { FontAwesome } from "@expo/vector-icons"
 import { AxiosError } from "axios"
 
-import {
-  deleteFavoriteAdvice,
-  getAllFavorites,
-  postFavoriteAdvice,
-} from "@/services"
+import { deleteFavoriteAdvice, getAllFavorites } from "@/services"
 
-import { Advice, ErrorMessage } from "@/models"
+import { Advice } from "@/models"
 
 import { AdviceComponent, LoadingComponent } from "@/components"
 
@@ -18,8 +14,6 @@ export default function favoritesScreen() {
   const [favorites, setFavorites] = useState<Advice[] | null>(null)
   const [error, setError] = useState<AxiosError | null>(null)
   const [loading, setLoading] = useState(false)
-
-  const [randomData, setRandomData] = useState<Advice | null>(null)
 
   const getSavedAdvices = async () => {
     try {
