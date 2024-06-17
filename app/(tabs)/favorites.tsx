@@ -78,7 +78,7 @@ export default function favoritesScreen() {
       ) : (
         <Text className="text-textSecondary">
           You have no favorites! Try pressing "
-          <FontAwesome size={14} name="save" color="black" />"
+          <FontAwesome size={14} name="bookmark-o" color="#6C63FF" />"
         </Text>
       )}
     </View>
