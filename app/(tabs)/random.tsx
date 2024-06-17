@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { Text, Button } from "react-native"
+import { Text, Button, TouchableOpacity } from "react-native"
 import { useFocusEffect } from "expo-router"
 import { AxiosError } from "axios"
 
@@ -38,14 +38,20 @@ export default function RandomScreen() {
 
   return (
     <DefaultScreen>
-      <Button
-        title="Press to take another random advice!"
+      <TouchableOpacity
+        className="bg-primary p-4 rounded-lg mb-4"
         onPress={() => handleRandomAdvice()}
-      />
+      >
+        <Text className="text-white text-lg">
+          Press to take another random advice!
+        </Text>
+      </TouchableOpacity>
       {loading ? (
         <LoadingComponent />
       ) : error ? (
-        <Text>An error occurred! Try again restarting the app!</Text>
+        <Text className="text-red-500">
+          An error occurred! Try again restarting the app!
+        </Text>
       ) : randomAdvice ? (
         <AdviceComponent
           advice={randomAdvice}
@@ -54,7 +60,9 @@ export default function RandomScreen() {
           shareContent
         />
       ) : (
-        errorMessage && <Text>{errorMessage.message.text}</Text>
+        errorMessage && (
+          <Text className="text-red-500">{errorMessage.message.text}</Text>
+        )
       )}
     </DefaultScreen>
   )

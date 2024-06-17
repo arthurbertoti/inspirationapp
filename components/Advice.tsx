@@ -37,28 +37,32 @@ export const AdviceComponent = ({
     }
   }
   return (
-    <View className="border border-black">
-      <Text key={advice.slip.id}>{advice.slip.advice}</Text>
-      {copyToClipboard && (
-        <TouchableOpacity onPress={() => handleCopy(advice.slip.advice)}>
-          <MaterialIcons name="content-copy" size={18} color="black" />
-        </TouchableOpacity>
-      )}
-      {shareContent && (
-        <TouchableOpacity onPress={() => handleShare(advice.slip.advice)}>
-          <FontAwesome name="share-alt" size={24} color="black" />
-        </TouchableOpacity>
-      )}
-      {favoriteAdvice && (
-        <TouchableOpacity onPress={favoriteAdvice}>
-          <FontAwesome size={18} name="bookmark-o" color="black" />
-        </TouchableOpacity>
-      )}
-      {deleteFromFavorites && (
-        <TouchableOpacity onPress={deleteFromFavorites}>
-          <MaterialIcons size={18} name="delete-outline" color="black" />
-        </TouchableOpacity>
-      )}
+    <View className="border border-border p-4 mb-4 bg-white rounded-lg shadow-md">
+      <Text className="text-textPrimary mb-2" key={advice.slip.id}>
+        {advice.slip.advice}
+      </Text>
+      <View className="flex flex-row gap-x-3">
+        {copyToClipboard && (
+          <TouchableOpacity onPress={() => handleCopy(advice.slip.advice)}>
+            <MaterialIcons name="content-copy" size={18} color="#6C63FF" />
+          </TouchableOpacity>
+        )}
+        {shareContent && (
+          <TouchableOpacity onPress={() => handleShare(advice.slip.advice)}>
+            <FontAwesome name="share-alt" size={22} color="#6C63FF" />
+          </TouchableOpacity>
+        )}
+        {favoriteAdvice && (
+          <TouchableOpacity onPress={favoriteAdvice}>
+            <FontAwesome size={22} name="bookmark-o" color="#6C63FF" />
+          </TouchableOpacity>
+        )}
+        {deleteFromFavorites && (
+          <TouchableOpacity onPress={deleteFromFavorites}>
+            <MaterialIcons size={22} name="delete-outline" color="#FF6347" />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   )
 }

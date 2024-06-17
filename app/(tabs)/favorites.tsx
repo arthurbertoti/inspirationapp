@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { Alert, Text, View } from "react-native"
+import { Alert, FlatList, Text, View } from "react-native"
 import { useFocusEffect } from "expo-router"
 import { FontAwesome } from "@expo/vector-icons"
 import { AxiosError } from "axios"
@@ -54,23 +54,29 @@ export default function favoritesScreen() {
   )
 
   return (
-    <View className="flex flex-1 items-center justify-center content-center gap-5">
+    <View className="flex flex-1 items-center justify-center content-center gap-5 bg-background p-4">
       {loading ? (
         <LoadingComponent />
       ) : error ? (
-        <Text>An error occurred! Try again restarting the app!</Text>
+        <Text className="text-textPrimary">
+          An error occurred! Try again restarting the app!
+        </Text>
       ) : favorites ? (
-        favorites.map((advice) => (
-          <AdviceComponent
-            key={advice.slip.id}
-            advice={advice}
-            copyToClipboard
-            deleteFromFavorites={() => handleDeleteAdvice(advice)}
-            shareContent
-          />
-        ))
+        <FlatList
+          data={favorites}
+          renderItem={({ item }) => (
+            <AdviceComponent
+              key={item.slip.id}
+              advice={item}
+              copyToClipboard
+              deleteFromFavorites={() => handleDeleteAdvice(item)}
+              shareContent
+            />
+          )}
+          keyExtractor={(item) => item.slip.id.toString()}
+        />
       ) : (
-        <Text>
+        <Text className="text-textSecondary">
           You have no favorites! Try pressing "
           <FontAwesome size={14} name="save" color="black" />"
         </Text>
