@@ -1,6 +1,6 @@
 import React from "react"
 import { Tabs } from "expo-router"
-import { FontAwesome } from "@expo/vector-icons"
+import { FontAwesome, Ionicons } from "@expo/vector-icons"
 
 export default function TabLayout() {
   return (
@@ -18,9 +18,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Daily Advice",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="home" color={color} />
+            <Ionicons name="bulb-outline" size={24} color={color} />
           ),
         }}
       />
@@ -29,7 +29,7 @@ export default function TabLayout() {
         options={{
           title: "Random",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="random" color={color} />
+            <FontAwesome size={24} name="random" color={color} />
           ),
         }}
       />
@@ -38,7 +38,7 @@ export default function TabLayout() {
         options={{
           title: "Favorites",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="bookmark-o" color={color} />
+            <FontAwesome size={24} name="bookmark-o" color={color} />
           ),
         }}
       />

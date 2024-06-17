@@ -11,7 +11,7 @@ import { DailyAdvice, ErrorMessage } from "@/models"
 
 import { AdviceComponent, DefaultScreen, LoadingComponent } from "@/components"
 
-export default function HomeScreen() {
+export default function DailyAdviceScreen() {
   const [dailyAdvice, setDailyAdvice] = useState<DailyAdvice | null>(null)
   const [error, setError] = useState<AxiosError | ErrorMessage | null>(null)
   const [loading, setLoading] = useState(false)
