@@ -66,6 +66,7 @@ export default function favoritesScreen() {
             advice={advice}
             copyToClipboard
             deleteFromFavorites={() => handleDeleteAdvice(advice)}
+            shareContent
           />
         ))
       ) : (

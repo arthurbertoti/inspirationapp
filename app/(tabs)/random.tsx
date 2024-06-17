@@ -51,6 +51,7 @@ export default function RandomScreen() {
           advice={randomAdvice}
           copyToClipboard
           favoriteAdvice={() => handleFavorite(randomAdvice)}
+          shareContent
         />
       ) : (
         errorMessage && <Text>{errorMessage.message.text}</Text>

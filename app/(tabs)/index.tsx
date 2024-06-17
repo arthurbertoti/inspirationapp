@@ -7,12 +7,12 @@ import { getDailyAdvice } from "@/services"
 
 import { handleFavorite } from "@/utils"
 
-import { Advice, ErrorMessage } from "@/models"
+import { DailyAdvice, ErrorMessage } from "@/models"
 
 import { AdviceComponent, DefaultScreen, LoadingComponent } from "@/components"
 
 export default function HomeScreen() {
-  const [dailyAdvice, setDailyAdvice] = useState<Advice | null>(null)
+  const [dailyAdvice, setDailyAdvice] = useState<DailyAdvice | null>(null)
   const [error, setError] = useState<AxiosError | ErrorMessage | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -51,6 +51,7 @@ export default function HomeScreen() {
           advice={dailyAdvice}
           copyToClipboard
           favoriteAdvice={() => handleFavorite(dailyAdvice)}
+          shareContent
         />
       ) : (
         <Text>{"An error occurred! Try again restarting the app!"}</Text>
