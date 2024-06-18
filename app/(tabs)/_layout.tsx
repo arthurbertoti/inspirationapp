@@ -42,6 +42,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: "Notifications",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="bell-o" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   )
 }
