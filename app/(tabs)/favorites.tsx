@@ -8,7 +8,7 @@ import { deleteFavoriteAdvice, getAllFavorites } from "@/services"
 
 import { Advice } from "@/models"
 
-import { AdviceComponent, LoadingComponent } from "@/components"
+import { AdviceComponent, DefaultScreen, LoadingComponent } from "@/components"
 
 export default function favoritesScreen() {
   const [favorites, setFavorites] = useState<Advice[] | null>(null)
@@ -54,7 +54,7 @@ export default function favoritesScreen() {
   )
 
   return (
-    <View className="flex flex-1 items-center justify-center content-center gap-5 bg-background p-4">
+    <DefaultScreen>
       {loading ? (
         <LoadingComponent />
       ) : error ? (
@@ -81,6 +81,6 @@ export default function favoritesScreen() {
           <FontAwesome size={14} name="bookmark-o" color="#6C63FF" />"
         </Text>
       )}
-    </View>
+    </DefaultScreen>
   )
 }
