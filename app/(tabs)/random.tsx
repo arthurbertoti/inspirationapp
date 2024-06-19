@@ -40,6 +40,7 @@ export default function RandomScreen() {
     <DefaultScreen>
       <TouchableOpacity
         className="bg-primary p-4 rounded-lg mb-4"
+        disabled={loading}
         onPress={() => handleRandomAdvice()}
       >
         <Text className="text-white text-lg">
