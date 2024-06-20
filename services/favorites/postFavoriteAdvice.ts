@@ -13,8 +13,9 @@ export async function postFavoriteAdvice(
   try {
     const storedAdvices = await getAllFavorites()
     const adviceAlreadyFavorite: boolean =
-      storedAdvices?.some((advice) => advice.slip.id === newAdvice.slip.id) ??
-      false
+      storedAdvices?.some(
+        (advice: Advice) => advice.slip.id === newAdvice.slip.id
+      ) ?? false
     if (adviceAlreadyFavorite) {
       const errorMessage = "This advice has already been saved!"
       const errorObject: ErrorMessage = {
