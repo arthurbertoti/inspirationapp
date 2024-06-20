@@ -1,5 +1,5 @@
 import { AxiosError } from "axios"
-import { api } from "./api"
+import { api } from "../"
 import { Advice, ErrorMessage } from "@/models"
 
 type Response =

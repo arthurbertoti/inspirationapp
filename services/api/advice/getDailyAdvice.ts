@@ -1,6 +1,6 @@
 import * as rssParser from "react-native-rss-parser"
 import { AxiosError } from "axios"
-import { api } from "./api"
+import { api } from "../"
 import { DailyAdvice } from "@/models"
 
 type Response = [DailyAdvice, null] | [null, AxiosError]
