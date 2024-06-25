@@ -1,5 +1,6 @@
 import * as rssParser from "react-native-rss-parser"
 import { AxiosError } from "axios"
+import { decode } from "html-entities"
 import { api } from "../"
 import { DailyAdvice } from "@/models"
 
@@ -19,7 +20,7 @@ export async function getDailyAdvice(): Promise<Response> {
     const dailyAdvice: DailyAdvice = {
       slip: {
         id: idNumber ? (idNumber[1] as unknown as number) : 0,
-        advice: currentAdvice.title,
+        advice: decode(currentAdvice.title),
       },
       imgUrl: imgUrl ? imgUrl[1] : "",
     }
