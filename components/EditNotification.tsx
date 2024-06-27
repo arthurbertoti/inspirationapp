@@ -1,5 +1,5 @@
 import { RefObject } from "react"
-import { Button, Switch, Text, TextInput, View } from "react-native"
+import { Switch, Text, TextInput, View } from "react-native"
 
 type EditNotificationProps = {
   title: string
