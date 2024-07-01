@@ -78,7 +78,6 @@ export default function notificationsScreen() {
     try {
       setEditing(false)
       setLoading(true)
-
       if (
         advices.evening !== null &&
         advices.evening !== "" &&

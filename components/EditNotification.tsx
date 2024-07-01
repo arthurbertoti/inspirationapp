@@ -26,8 +26,17 @@ export const EditNotification = ({
   return (
     <View className="flex-row w-full justify-between gap-2 px-4">
       <View>
-        <Text>{title}</Text>
+        <Text className="font-bold text-2xl">{title}</Text>
         <TextInput
+          maxLength={100}
+          style={{
+            paddingBottom: 3,
+            paddingStart: 1,
+            borderBottomColor: "#3e3e3e",
+            borderBottomWidth: 1,
+            width: 300,
+            fontSize: 16,
+          }}
           ref={inputRef}
           onChangeText={onChangeText}
           value={textValue}
