@@ -59,7 +59,7 @@ export default function RandomScreen() {
             )
           )}
           <TouchableOpacity
-            className="bg-primary justify-self-end p-4 rounded-lg mb-4 w-4/5"
+            className="bg-primary justify-self-end p-4 rounded-lg mb-2 w-4/5"
             disabled={loading}
             onPress={() => handleRandomAdvice()}
           >

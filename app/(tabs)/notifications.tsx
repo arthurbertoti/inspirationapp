@@ -108,7 +108,7 @@ export default function notificationsScreen() {
   return (
     <DefaultScreen>
       <SafeAreaView className="w-full h-full justify-end">
-        <View className="h-3/4 w-full p-3">
+        <View className="h-3/4 w-full">
           {loading ? (
             <LoadingComponent />
           ) : error ? (
@@ -123,10 +123,11 @@ export default function notificationsScreen() {
               />
             </View>
           ) : (
-            <View className="flex-1 justify-between ">
+            <View className="flex-1 justify-between">
               <View className="flex gap-4">
                 <EditNotification
                   title="Morning notification"
+                  scheduleText="(Sent at 6:00 AM, GMT-3)"
                   inputRef={morningAdvice}
                   onChangeText={(text: string) =>
                     setAdvices({ ...advices, morning: text })
@@ -145,6 +146,7 @@ export default function notificationsScreen() {
                 />
                 <EditNotification
                   title="Evening notification"
+                  scheduleText="(Sent at 9:00 PM, GMT-3)"
                   inputRef={eveningAdvice}
                   onChangeText={(text: string) =>
                     setAdvices({ ...advices, evening: text })
@@ -165,7 +167,7 @@ export default function notificationsScreen() {
               <View className="flex-row w-full justify-around items-center gap-2">
                 <TouchableOpacity
                   className={clsx(
-                    "bg-primary justify-self-end p-4 rounded-lg mb-1",
+                    "bg-primary justify-self-end p-4 rounded-lg mb-2",
                     editing ? "w-2/5" : "w-4/5"
                   )}
                   onPress={() => (editing ? handleCancelEdit() : handleEdit())}
@@ -177,7 +179,7 @@ export default function notificationsScreen() {
                 {editing && (
                   <TouchableOpacity
                     className={clsx(
-                      "bg-primary justify-self-end p-4 rounded-lg mb-1",
+                      "bg-primary justify-self-end p-4 rounded-lg mb-2",
                       editing ? "w-2/5" : "w-4/5"
                     )}
                     onPress={handleSaveUserTags}

@@ -3,6 +3,7 @@ import { Switch, Text, TextInput, View } from "react-native"
 
 type EditNotificationProps = {
   title: string
+  scheduleText: string
   inputRef: RefObject<TextInput>
   onChangeText: (text: string) => void
   textValue: string
@@ -15,6 +16,7 @@ type EditNotificationProps = {
 export const EditNotification = ({
   title,
   inputRef,
+  scheduleText,
   onChangeText,
   textValue,
   placeholder,
@@ -25,8 +27,11 @@ export const EditNotification = ({
 }: EditNotificationProps) => {
   return (
     <View className="flex-row w-full justify-between gap-2 px-4">
-      <View>
-        <Text className="font-bold text-2xl">{title}</Text>
+      <View className="max-w-[80%]">
+        <View className="flex-row">
+          <Text className="font-bold text-2xl">{title}</Text>
+          <Text className="text-xs">{scheduleText}</Text>
+        </View>
         <TextInput
           maxLength={100}
           style={{
@@ -34,7 +39,7 @@ export const EditNotification = ({
             paddingStart: 1,
             borderBottomColor: "#3e3e3e",
             borderBottomWidth: 1,
-            width: 300,
+            width: "100%",
             fontSize: 16,
           }}
           ref={inputRef}
@@ -47,6 +52,9 @@ export const EditNotification = ({
         />
       </View>
       <Switch
+        style={{
+          width: "20%",
+        }}
         value={toggleValue}
         onChange={onToggle}
         disabled={toggleDisabled}
