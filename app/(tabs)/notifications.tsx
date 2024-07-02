@@ -1,16 +1,8 @@
 import { useCallback, useRef, useState } from "react"
 import { useFocusEffect } from "expo-router"
 import { OneSignal } from "react-native-onesignal"
-import clsx from "clsx"
 
-import {
-  Button,
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native"
+import { Button, SafeAreaView, Text, TextInput, View } from "react-native"
 
 import {
   createEveningAdviceTag,
@@ -38,7 +30,6 @@ export default function notificationsScreen() {
     morning: false,
     evening: false,
   })
-  const [editing, setEditing] = useState(false)
 
   const morningAdvice = useRef<TextInput>(null)
   const eveningAdvice = useRef<TextInput>(null)
@@ -66,33 +57,22 @@ export default function notificationsScreen() {
     }
   }
 
-  const handleCancelEdit = async () => {
-    setEditing(!editing)
-  }
-
-  const handleEdit = () => {
-    setEditing(!editing)
-  }
-
-  const handleSaveUserTags = async () => {
+  const handleSaveUserTags = async ({
+    advice,
+    tag,
+    notificationEnabled,
+    createAdviceTagFunction,
+  }: {
+    advice: string | null
+    tag: "morning_advice" | "evening_advice"
+    notificationEnabled: boolean
+    createAdviceTagFunction: ({ text }: { text: string }) => void
+  }) => {
     try {
-      setEditing(false)
       setLoading(true)
-      if (
-        advices.evening !== null &&
-        advices.evening !== "" &&
-        notification.evening === true
-      ) {
-        await createEveningAdviceTag({ text: advices.evening })
-      } else removeUserTag("evening_advice")
-
-      if (
-        advices.morning !== null &&
-        advices.morning !== "" &&
-        notification.morning === true
-      ) {
-        await createMorningAdviceTag({ text: advices.morning })
-      } else removeUserTag("morning_advice")
+      if (advice !== null && advice !== "" && notificationEnabled === true) {
+        await createAdviceTagFunction({ text: advice })
+      } else removeUserTag(tag)
     } catch (error) {
       console.error("Error creating tags:", error)
       setError(true)
@@ -129,66 +109,66 @@ export default function notificationsScreen() {
                   title="Morning notification"
                   scheduleText="(Sent at 6:00 AM, GMT-3)"
                   inputRef={morningAdvice}
-                  onChangeText={(text: string) =>
+                  onChangeText={(text: string) => {
                     setAdvices({ ...advices, morning: text })
-                  }
+                    setNotification({
+                      ...notification,
+                      morning: false,
+                    })
+                  }}
                   textValue={advices.morning ? advices.morning : ""}
                   placeholder="Type something nice for you!"
-                  editable={editing}
+                  editable={!loading}
                   onToggle={() =>
+                    advices.morning &&
                     setNotification({
                       ...notification,
                       morning: !notification.morning,
                     })
                   }
                   toggleValue={notification.morning}
-                  toggleDisabled={!editing}
+                  onToggleValueChange={(value) =>
+                    handleSaveUserTags({
+                      advice: advices.morning,
+                      tag: "morning_advice",
+                      notificationEnabled: value,
+                      createAdviceTagFunction: createMorningAdviceTag,
+                    })
+                  }
+                  toggleDisabled={loading}
                 />
                 <EditNotification
                   title="Evening notification"
                   scheduleText="(Sent at 9:00 PM, GMT-3)"
                   inputRef={eveningAdvice}
-                  onChangeText={(text: string) =>
+                  onChangeText={(text: string) => {
                     setAdvices({ ...advices, evening: text })
-                  }
+                    setNotification({
+                      ...notification,
+                      evening: false,
+                    })
+                  }}
                   textValue={advices.evening ? advices.evening : ""}
                   placeholder="Type something nice for you!"
-                  editable={editing}
+                  editable={!loading}
                   onToggle={() =>
+                    advices.evening &&
                     setNotification({
                       ...notification,
                       evening: !notification.evening,
                     })
                   }
                   toggleValue={notification.evening}
-                  toggleDisabled={!editing}
+                  onToggleValueChange={(value) =>
+                    handleSaveUserTags({
+                      advice: advices.evening,
+                      tag: "evening_advice",
+                      notificationEnabled: value,
+                      createAdviceTagFunction: createEveningAdviceTag,
+                    })
+                  }
+                  toggleDisabled={loading}
                 />
-              </View>
-              <View className="flex-row w-full justify-around items-center gap-2">
-                <TouchableOpacity
-                  className={clsx(
-                    "bg-primary justify-self-end p-4 rounded-lg mb-2",
-                    editing ? "w-2/5" : "w-4/5"
-                  )}
-                  onPress={() => (editing ? handleCancelEdit() : handleEdit())}
-                >
-                  <Text className="text-white text-2xl font-bold text-center">
-                    {editing ? "Cancel" : "Edit"}
-                  </Text>
-                </TouchableOpacity>
-                {editing && (
-                  <TouchableOpacity
-                    className={clsx(
-                      "bg-primary justify-self-end p-4 rounded-lg mb-2",
-                      editing ? "w-2/5" : "w-4/5"
-                    )}
-                    onPress={handleSaveUserTags}
-                  >
-                    <Text className="text-white text-2xl font-bold text-center">
-                      Save
-                    </Text>
-                  </TouchableOpacity>
-                )}
               </View>
             </View>
           )}

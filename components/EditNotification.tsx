@@ -10,6 +10,7 @@ type EditNotificationProps = {
   placeholder: string
   editable: boolean
   onToggle: () => void
+  onToggleValueChange: (value: boolean) => void | Promise<void>
   toggleValue: boolean
   toggleDisabled: boolean
 }
@@ -22,6 +23,7 @@ export const EditNotification = ({
   placeholder,
   editable,
   onToggle,
+  onToggleValueChange,
   toggleValue,
   toggleDisabled,
 }: EditNotificationProps) => {
@@ -57,6 +59,7 @@ export const EditNotification = ({
         }}
         value={toggleValue}
         onChange={onToggle}
+        onValueChange={onToggleValueChange}
         disabled={toggleDisabled}
       />
     </View>
