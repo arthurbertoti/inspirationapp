@@ -8,6 +8,8 @@ import {
   createEveningAdviceTag,
   removeUserTag,
   createMorningAdviceTag,
+  postNotification,
+  getAllStoredNotifications,
 } from "@/services"
 
 import { DefaultScreen, EditNotification, LoadingComponent } from "@/components"
@@ -41,13 +43,22 @@ export default function notificationsScreen() {
     setLoading(true)
     try {
       const tags = await OneSignal.User.getTags()
+      const storedNotifications = await getAllStoredNotifications()
+      const morningStoredNotification = storedNotifications.find(
+        (notification) => notification.schedule === "morning"
+      )
+      const eveningStoredNotification = storedNotifications.find(
+        (notification) => notification.schedule === "evening"
+      )
+
       setNotification({
         morning: Boolean(tags.morning_advice),
         evening: Boolean(tags.evening_advice),
       })
+
       setAdvices({
-        morning: tags.morning_advice ? tags.morning_advice : null,
-        evening: tags.evening_advice ? tags.evening_advice : null,
+        morning: tags.morning_advice || morningStoredNotification?.text || null,
+        evening: tags.evening_advice || eveningStoredNotification?.text || null,
       })
     } catch (error) {
       console.error("Error fetching tags:", error)
@@ -80,6 +91,20 @@ export default function notificationsScreen() {
       setLoading(false)
     }
   }
+  const handleAsyncSaveNotification = async ({
+    text,
+    schedule,
+  }: {
+    text: string
+    schedule: "morning" | "evening"
+  }) => {
+    try {
+      await postNotification({ text: text, schedule: schedule })
+    } catch (error) {
+      setError(true)
+    }
+  }
+
   useFocusEffect(
     useCallback(() => {
       handleGetUserTags()
@@ -115,6 +140,10 @@ export default function notificationsScreen() {
                       ...notification,
                       morning: false,
                     })
+                    handleAsyncSaveNotification({
+                      text: text,
+                      schedule: "morning",
+                    })
                   }}
                   textValue={advices.morning ? advices.morning : ""}
                   placeholder="Type something nice for you!"
@@ -146,6 +175,10 @@ export default function notificationsScreen() {
                     setNotification({
                       ...notification,
                       evening: false,
+                    })
+                    handleAsyncSaveNotification({
+                      text: text,
+                      schedule: "evening",
                     })
                   }}
                   textValue={advices.evening ? advices.evening : ""}
