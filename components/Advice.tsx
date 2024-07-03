@@ -2,6 +2,8 @@ import { Alert, Share, Text, TouchableOpacity, View } from "react-native"
 import * as Clipboard from "expo-clipboard"
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons"
 
+import { handleShareContent } from "@/utils"
+
 import { Advice } from "@/models"
 
 interface Props {
@@ -28,9 +30,10 @@ export const AdviceComponent = ({
     }
   }
   const handleShare = async (text: string) => {
+    const shareContent = handleShareContent(text)
     try {
       await Share.share({
-        message: text,
+        message: shareContent,
       })
     } catch (error) {
       Alert.alert("Error!", "The message could not be shared!")
