@@ -24,12 +24,10 @@ export default function DailyAdviceScreen() {
       const [response, error] = await getDailyAdvice()
       if (error) {
         setError(error)
-        console.log(error)
         return
       }
       setDailyAdvice(response)
     } catch (error) {
-      console.log(error)
       setError(error as AxiosError)
     } finally {
       setLoading(false)

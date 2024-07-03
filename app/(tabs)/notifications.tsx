@@ -61,7 +61,6 @@ export default function notificationsScreen() {
         evening: tags.evening_advice || eveningStoredNotification?.text || null,
       })
     } catch (error) {
-      console.error("Error fetching tags:", error)
       setError(true)
     } finally {
       setLoading(false)
@@ -85,7 +84,6 @@ export default function notificationsScreen() {
         await createAdviceTagFunction({ text: advice })
       } else removeUserTag(tag)
     } catch (error) {
-      console.error("Error creating tags:", error)
       setError(true)
     } finally {
       setLoading(false)

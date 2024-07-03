@@ -26,7 +26,6 @@ export async function getDailyAdvice(): Promise<Response> {
     }
     return [dailyAdvice, null]
   } catch (error) {
-    console.log(error)
     return [null, error as AxiosError]
   }
 }
